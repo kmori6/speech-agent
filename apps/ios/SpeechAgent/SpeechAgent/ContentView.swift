@@ -16,6 +16,7 @@ struct Message: Identifiable {
 struct ContentView: View {
     @State private var text: String = ""
     @State private var messages: [Message] = []
+    @StateObject private var asrClient = ASRClient()
     private var llmClient = LLMClient()
     private var ttsClient = TTSClient()
     
@@ -43,40 +44,40 @@ struct ContentView: View {
                 }
                 
                 HStack(alignment: .bottom, spacing: 8) {
-                    TextField("Input message", text: $text, axis: .vertical)
-                        .textFieldStyle(.roundedBorder)
+                    TextField("Input message", text: $asrClient.transcript, axis: .vertical)
                         .lineLimit(1...4)
                     
-                    Button(action: sendMessage) {
-                        Image(systemName: "paperplane.fill")
+                    Button(action: asrClient.startRecognition) {
+                        Image(systemName: "mic.fill")
                             .foregroundStyle(.white)
                             .frame(width: 32, height: 32)
                             .background(
                                 Circle().fill(Color.blue)
                             )
                     }
+                    .disabled(asrClient.isRecording)
                 }
                 .padding()
                 .background(Color(.systemBackground))
             }
         }
-    }
-    
-    private func sendMessage() {
-        guard !text.isEmpty else {
-            return
+        .onAppear {
+            asrClient.requestAuthorization()
         }
-        
-        messages.append(Message(role: "user", content: text))
-        
-        Task {
-            let output = await llmClient.responses(messages: messages)
-            let message = Message(role: "assistant", content: output)
-            messages.append(message)
+        .onChange(of: asrClient.finalTranscript) { _, newValue in
+            let text = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
+            guard !text.isEmpty else { return }
+            messages.append(Message(role: "user", content: text))
+            asrClient.clearTranscript()
             
-            ttsClient.synthesize(text: output, rate: 0.5)
+            Task {
+                let output = "dummy results."
+                let message = Message(role: "assistant", content: output)
+                messages.append(message)
+                
+                ttsClient.synthesize(text: output, rate: 0.5)
+            }
         }
-        text = ""
     }
 }
 
