@@ -17,6 +17,7 @@ struct ContentView: View {
     @State private var text: String = ""
     @State private var messages: [Message] = []
     private var llmClient = LLMClient()
+    private var ttsClient = TTSClient()
     
     var body: some View {
         NavigationStack {
@@ -70,9 +71,10 @@ struct ContentView: View {
         
         Task {
             let output = await llmClient.responses(messages: messages)
-            print(output)
             let message = Message(role: "assistant", content: output)
             messages.append(message)
+            
+            ttsClient.synthesize(text: output, rate: 0.5)
         }
         text = ""
     }
