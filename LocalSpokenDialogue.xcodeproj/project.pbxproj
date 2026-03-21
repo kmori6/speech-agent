@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		21C6DFA12F69A9CB000A5B17 /* SpeechAgent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeechAgent.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		21C6DFA12F69A9CB000A5B17 /* LocalSpokenDialogue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LocalSpokenDialogue.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		21C6DFA32F69A9CB000A5B17 /* SpeechAgent */ = {
+		21C6DFA32F69A9CB000A5B17 /* LocalSpokenDialogue */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = SpeechAgent;
+			path = LocalSpokenDialogue;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -32,7 +32,7 @@
 		21C6DF982F69A9CB000A5B17 = {
 			isa = PBXGroup;
 			children = (
-				21C6DFA32F69A9CB000A5B17 /* SpeechAgent */,
+				21C6DFA32F69A9CB000A5B17 /* LocalSpokenDialogue */,
 				21C6DFA22F69A9CB000A5B17 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -40,7 +40,7 @@
 		21C6DFA22F69A9CB000A5B17 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				21C6DFA12F69A9CB000A5B17 /* SpeechAgent.app */,
+				21C6DFA12F69A9CB000A5B17 /* LocalSpokenDialogue.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -48,9 +48,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		21C6DFA02F69A9CB000A5B17 /* SpeechAgent */ = {
+		21C6DFA02F69A9CB000A5B17 /* LocalSpokenDialogue */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 21C6DFAC2F69A9CD000A5B17 /* Build configuration list for PBXNativeTarget "SpeechAgent" */;
+			buildConfigurationList = 21C6DFAC2F69A9CD000A5B17 /* Build configuration list for PBXNativeTarget "LocalSpokenDialogue" */;
 			buildPhases = (
 				21C6DF9D2F69A9CB000A5B17 /* Sources */,
 				21C6DF9E2F69A9CB000A5B17 /* Frameworks */,
@@ -61,13 +61,13 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				21C6DFA32F69A9CB000A5B17 /* SpeechAgent */,
+				21C6DFA32F69A9CB000A5B17 /* LocalSpokenDialogue */,
 			);
-			name = SpeechAgent;
+			name = LocalSpokenDialogue;
 			packageProductDependencies = (
 			);
 			productName = SpeechAgent;
-			productReference = 21C6DFA12F69A9CB000A5B17 /* SpeechAgent.app */;
+			productReference = 21C6DFA12F69A9CB000A5B17 /* LocalSpokenDialogue.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -85,7 +85,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 21C6DF9C2F69A9CB000A5B17 /* Build configuration list for PBXProject "SpeechAgent" */;
+			buildConfigurationList = 21C6DF9C2F69A9CB000A5B17 /* Build configuration list for PBXProject "LocalSpokenDialogue" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -99,7 +99,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				21C6DFA02F69A9CB000A5B17 /* SpeechAgent */,
+				21C6DFA02F69A9CB000A5B17 /* LocalSpokenDialogue */,
 			);
 		};
 /* End PBXProject section */
@@ -268,7 +268,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = kmori6.SpeechAgent;
+				PRODUCT_BUNDLE_IDENTIFIER = kmori6.LocalSpokenDialogue;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -302,7 +302,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = kmori6.SpeechAgent;
+				PRODUCT_BUNDLE_IDENTIFIER = kmori6.LocalSpokenDialogue;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -317,7 +317,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		21C6DF9C2F69A9CB000A5B17 /* Build configuration list for PBXProject "SpeechAgent" */ = {
+		21C6DF9C2F69A9CB000A5B17 /* Build configuration list for PBXProject "LocalSpokenDialogue" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				21C6DFAA2F69A9CD000A5B17 /* Debug */,
@@ -326,7 +326,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		21C6DFAC2F69A9CD000A5B17 /* Build configuration list for PBXNativeTarget "SpeechAgent" */ = {
+		21C6DFAC2F69A9CD000A5B17 /* Build configuration list for PBXNativeTarget "LocalSpokenDialogue" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				21C6DFAD2F69A9CD000A5B17 /* Debug */,
