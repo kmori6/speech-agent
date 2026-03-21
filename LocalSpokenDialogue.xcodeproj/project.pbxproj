@@ -6,13 +6,42 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXCopyFilesBuildPhase section */
+		211D5DD72F6EE44400A6CE7F /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		21C6DFA12F69A9CB000A5B17 /* LocalSpokenDialogue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LocalSpokenDialogue.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		211D5DD82F6EE44400A6CE7F /* Exceptions for "LocalSpokenDialogue" folder in "Embed Frameworks" phase from "LocalSpokenDialogue" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			attributesByRelativePath = {
+				LlamaCpp/llama.xcframework = (CodeSignOnCopy, RemoveHeadersOnCopy, );
+			};
+			buildPhase = 211D5DD72F6EE44400A6CE7F /* Embed Frameworks */;
+			membershipExceptions = (
+				LlamaCpp/llama.xcframework,
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		21C6DFA32F69A9CB000A5B17 /* LocalSpokenDialogue */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				211D5DD82F6EE44400A6CE7F /* Exceptions for "LocalSpokenDialogue" folder in "Embed Frameworks" phase from "LocalSpokenDialogue" target */,
+			);
 			path = LocalSpokenDialogue;
 			sourceTree = "<group>";
 		};
@@ -55,6 +84,7 @@
 				21C6DF9D2F69A9CB000A5B17 /* Sources */,
 				21C6DF9E2F69A9CB000A5B17 /* Frameworks */,
 				21C6DF9F2F69A9CB000A5B17 /* Resources */,
+				211D5DD72F6EE44400A6CE7F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

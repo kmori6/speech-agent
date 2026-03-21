@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import Combine
+import llama
 
 struct Request: Encodable {
     let model: String
@@ -28,10 +30,37 @@ struct ContentItem: Codable {
     let text: String
 }
 
-struct LLMClient {
+final class LLMClient: ObservableObject {
     private let baseURL = "https://api.openai.com/v1"
     private let model = "gpt-5.4"
     private let instructions = "You are a helpful assistant."
+    
+    @Published var isReady = false
+    private let modelFileName = "Qwen3.5-4B-Q4_K_M"
+    private let modelFileExtension = "gguf"
+    private var context: LlamaContext?
+    
+    func load() async {
+        if isReady {
+            return
+        }
+        
+        do {
+            guard let modelURL = Bundle.main.url(
+                forResource: modelFileName,
+                withExtension: modelFileExtension,
+            ) else {
+                print("model url error.")
+                return
+            }
+
+            context = try LlamaContext.create_context(path: modelURL.path)
+            isReady = true
+            print("loaded model.")
+        } catch {
+            print("model load failed.")
+        }
+    }
     
     func responses(messages: [Message]) async -> String {
         guard let apiKey = ProcessInfo.processInfo.environment["OPENAI_API_KEY"] else {

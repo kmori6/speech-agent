@@ -17,7 +17,7 @@ struct ContentView: View {
     @State private var text: String = ""
     @State private var messages: [Message] = []
     @StateObject private var asrClient = ASRClient()
-    private var llmClient = LLMClient()
+    @StateObject private var llmClient = LLMClient()
     private var ttsClient = TTSClient()
     
     var body: some View {
@@ -68,6 +68,9 @@ struct ContentView: View {
         }
         .onAppear {
             asrClient.requestAuthorization()
+            Task {
+                await llmClient.load()
+            }
         }
         .onChange(of: asrClient.finalTranscript) { _, newValue in
             let text = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
