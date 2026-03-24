@@ -17,7 +17,6 @@ final class ASRClient: ObservableObject {
     @Published var isRecording: Bool = false
     
     @Published var useOnDeviceRecognition: Bool = false
-    @Published var supportsOnDeviceRecognition: Bool = false
     
     private let audioEngine = AVAudioEngine()
     private let speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "ja-JP"))
@@ -25,7 +24,7 @@ final class ASRClient: ObservableObject {
     private var recognitionTask: SFSpeechRecognitionTask?
     
     init() {
-        supportsOnDeviceRecognition = speechRecognizer?.supportsOnDeviceRecognition ?? false
+        useOnDeviceRecognition = speechRecognizer?.supportsOnDeviceRecognition ?? false
     }
     
     func requestAuthorization() {
