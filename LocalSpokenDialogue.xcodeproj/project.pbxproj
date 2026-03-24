@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		21BBDACC2F72C0A100A9EA83 /* onnxruntime in Frameworks */ = {isa = PBXBuildFile; productRef = 21BBDACB2F72C0A100A9EA83 /* onnxruntime */; };
+		21BBDACE2F72C0A100A9EA83 /* onnxruntime_extensions in Frameworks */ = {isa = PBXBuildFile; productRef = 21BBDACD2F72C0A100A9EA83 /* onnxruntime_extensions */; };
 		21CB38C12F715E6C003B1F9A /* MLXLLM in Frameworks */ = {isa = PBXBuildFile; productRef = 21CB38C02F715E6C003B1F9A /* MLXLLM */; };
 		21CB38C32F715E6C003B1F9A /* MLXLMCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 21CB38C22F715E6C003B1F9A /* MLXLMCommon */; };
 		21CB38C52F715E6C003B1F9A /* MLXVLM in Frameworks */ = {isa = PBXBuildFile; productRef = 21CB38C42F715E6C003B1F9A /* MLXVLM */; };
@@ -29,24 +31,11 @@
 		21C6DFA12F69A9CB000A5B17 /* LocalSpokenDialogue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LocalSpokenDialogue.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-		211D5DD82F6EE44400A6CE7F /* Exceptions for "LocalSpokenDialogue" folder in "Embed Frameworks" phase from "LocalSpokenDialogue" target */ = {
-			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
-			attributesByRelativePath = {
-				LlamaCpp/llama.xcframework = (CodeSignOnCopy, RemoveHeadersOnCopy, );
-			};
-			buildPhase = 211D5DD72F6EE44400A6CE7F /* Embed Frameworks */;
-			membershipExceptions = (
-				LlamaCpp/llama.xcframework,
-			);
-		};
-/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		21C6DFA32F69A9CB000A5B17 /* LocalSpokenDialogue */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				211D5DD82F6EE44400A6CE7F /* Exceptions for "LocalSpokenDialogue" folder in "Embed Frameworks" phase from "LocalSpokenDialogue" target */,
+			explicitFolders = (
+				"models/Qwen3.5-4B-MLX-4bit",
 			);
 			path = LocalSpokenDialogue;
 			sourceTree = "<group>";
@@ -58,8 +47,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21BBDACE2F72C0A100A9EA83 /* onnxruntime_extensions in Frameworks */,
 				21CB38C12F715E6C003B1F9A /* MLXLLM in Frameworks */,
 				21CB38C32F715E6C003B1F9A /* MLXLMCommon in Frameworks */,
+				21BBDACC2F72C0A100A9EA83 /* onnxruntime in Frameworks */,
 				21CB38C52F715E6C003B1F9A /* MLXVLM in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -107,6 +98,8 @@
 				21CB38C02F715E6C003B1F9A /* MLXLLM */,
 				21CB38C22F715E6C003B1F9A /* MLXLMCommon */,
 				21CB38C42F715E6C003B1F9A /* MLXVLM */,
+				21BBDACB2F72C0A100A9EA83 /* onnxruntime */,
+				21BBDACD2F72C0A100A9EA83 /* onnxruntime_extensions */,
 			);
 			productName = SpeechAgent;
 			productReference = 21C6DFA12F69A9CB000A5B17 /* LocalSpokenDialogue.app */;
@@ -138,6 +131,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				21CB38BF2F715E6C003B1F9A /* XCRemoteSwiftPackageReference "mlx-swift-lm" */,
+				21BBDACA2F72C0A100A9EA83 /* XCRemoteSwiftPackageReference "onnxruntime-swift-package-manager" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 21C6DFA22F69A9CB000A5B17 /* Products */;
@@ -383,6 +377,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		21BBDACA2F72C0A100A9EA83 /* XCRemoteSwiftPackageReference "onnxruntime-swift-package-manager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/microsoft/onnxruntime-swift-package-manager";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.24.2;
+			};
+		};
 		21CB38BF2F715E6C003B1F9A /* XCRemoteSwiftPackageReference "mlx-swift-lm" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ml-explore/mlx-swift-lm/";
@@ -394,6 +396,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		21BBDACB2F72C0A100A9EA83 /* onnxruntime */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 21BBDACA2F72C0A100A9EA83 /* XCRemoteSwiftPackageReference "onnxruntime-swift-package-manager" */;
+			productName = onnxruntime;
+		};
+		21BBDACD2F72C0A100A9EA83 /* onnxruntime_extensions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 21BBDACA2F72C0A100A9EA83 /* XCRemoteSwiftPackageReference "onnxruntime-swift-package-manager" */;
+			productName = onnxruntime_extensions;
+		};
 		21CB38C02F715E6C003B1F9A /* MLXLLM */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 21CB38BF2F715E6C003B1F9A /* XCRemoteSwiftPackageReference "mlx-swift-lm" */;
