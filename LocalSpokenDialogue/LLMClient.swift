@@ -36,9 +36,9 @@ final class LLMClient: ObservableObject {
               instructions: instructions,
               generateParameters: .init(
                   maxTokens: 256,
-                  temperature: 1.0,
-                  topP: 0.95,
-                  presencePenalty: 1.5,
+                  temperature: 0.7,
+                  topP: 0.8,
+                  presencePenalty: 0.0,
               ),
               additionalContext: ["enable_thinking": reasoningEnabled]
             )
