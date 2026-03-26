@@ -14,10 +14,8 @@ import Combine
 final class ASRClient: ObservableObject {
     @Published var transcript: String = ""
     @Published var finalTranscript: String = ""
-    @Published var isRecording: Bool = false
     @Published var useOnDeviceRecognition: Bool = false
     
-    private let audioEngine = AVAudioEngine()
     private let speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "ja-JP"))
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     private var recognitionTask: SFSpeechRecognitionTask?
@@ -57,9 +55,9 @@ final class ASRClient: ObservableObject {
         }
     }
     
-    func startRecognition() {
+    func start() {
         
-        stopRecognition()
+        stop()
         
         guard let speechRecognizer else {
             return
@@ -69,74 +67,40 @@ final class ASRClient: ObservableObject {
             return
         }
         
-        do {
-            // record session
-            let audioSession = AVAudioSession.sharedInstance()
-            try audioSession.setCategory(.record, mode: .measurement, options: .duckOthers)
-            try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
+        // recognition request
+        recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
+        guard let recognitionRequest else {
+            return
+        }
+        recognitionRequest.shouldReportPartialResults = true
+        recognitionRequest.requiresOnDeviceRecognition = useOnDeviceRecognition
         
-            // recognition request
-            recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
-            guard let recognitionRequest else {
-                return
-            }
-            recognitionRequest.shouldReportPartialResults = true
-            recognitionRequest.requiresOnDeviceRecognition = useOnDeviceRecognition
+        // recognition task
+        recognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest) { [weak self] result, _ in
+            guard let self else { return }
             
-            // input node
-            let inputNode = audioEngine.inputNode
-            let recordingFormat = inputNode.outputFormat(forBus: 0)
-            inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { [weak self] buffer, _ in
-                self?.recognitionRequest?.append(buffer)
+            if let result {
+                self.transcript = result.bestTranscription.formattedString
             }
             
-            // recognition task
-            recognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest) { [weak self] result, _ in
-                guard let self else { return }
-                
-                if let result {
-                    self.transcript = result.bestTranscription.formattedString
-                }
-                
-                if result?.isFinal == true {
-                    self.finalTranscript = self.transcript
-                    stopRecognition()
-                }
+            if result?.isFinal == true {
+                self.finalTranscript = self.transcript
+                stop()
             }
-            
-            // start audioEngine
-            audioEngine.prepare()
-            try audioEngine.start()
-            
-            isRecording = true
-            
-        } catch {
-            stopRecognition()
         }
     }
     
-    func stopRecognition() {
-        if audioEngine.isRunning {
-            audioEngine.stop()
-            audioEngine.inputNode.removeTap(onBus: 0)
-        }
+    func stop() {
         
         recognitionRequest?.endAudio()
         recognitionRequest = nil
         
         recognitionTask?.finish()
         recognitionTask = nil
-        
-        isRecording = false
-        
-        do {
-            try AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
-        } catch {
-            return
-        }
+
     }
     
-    func clearTranscript() {
+    func clear() {
         transcript = ""
         finalTranscript = ""
     }

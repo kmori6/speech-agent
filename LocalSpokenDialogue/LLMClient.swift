@@ -40,8 +40,7 @@ final class LLMClient: ObservableObject {
                   topP: 0.95,
                   presencePenalty: 1.5,
               ),
-              additionalContext: ["enable_thinking":
-              reasoningEnabled]
+              additionalContext: ["enable_thinking": reasoningEnabled]
             )
             
             isReady = true

@@ -14,11 +14,17 @@ struct Message: Identifiable {
 }
 
 struct ContentView: View {
-    @State private var text: String = ""
     @State private var messages: [Message] = []
-    @StateObject private var asrClient = ASRClient()
+    @StateObject private var asrClient: ASRClient
+    @StateObject private var audioClient: AudioClient
     @StateObject private var llmClient = LLMClient()
-    private var ttsClient = TTSClient()
+    private let ttsClient = TTSClient()
+    
+    init() {
+        let asr = ASRClient()
+        _asrClient = StateObject(wrappedValue: asr)
+        _audioClient = StateObject(wrappedValue: AudioClient(asrClient: asr))
+    }
     
     var body: some View {
         NavigationStack {
@@ -48,13 +54,19 @@ struct ContentView: View {
                         .lineLimit(1...4)
                     
                     Button(action: {
-                        if asrClient.isRecording {
-                            asrClient.stopRecognition()
+                        if audioClient.isRecording {
+                            audioClient.stop()
                         } else {
-                            asrClient.startRecognition()
+                            Task {
+                                do {
+                                    try await audioClient.start()
+                                } catch {
+                                    print(error)
+                                }
                             }
+                        }
                     }) {
-                        Image(systemName: asrClient.isRecording ? "stop.fill" : "mic.fill")
+                        Image(systemName: audioClient.isRecording ? "stop.fill" : "mic.fill")
                             .foregroundStyle(.white)
                             .frame(width: 32, height: 32)
                             .background(
@@ -72,11 +84,14 @@ struct ContentView: View {
                 await llmClient.load()
             }
         }
+        .onDisappear {
+            audioClient.stop()
+        }
         .onChange(of: asrClient.finalTranscript) { _, newValue in
             let text = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
             guard !text.isEmpty else { return }
             messages.append(Message(role: "user", content: text))
-            asrClient.clearTranscript()
+            asrClient.clear()
             
             Task {
                 let message = await llmClient.generate(text: text)
